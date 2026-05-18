@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Media AI - Génère tes posts en 30 secondes</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Arial, sans-serif; }
+body { background: #0a0a0a; color: #ffffff; line-height: 1.6; }
+header { background: #000; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #D4AF37; position: sticky; top: 0; z-index: 100; }
+.logo { font-size: 24px; font-weight: bold; color: #D4AF37; display: flex; align-items: center; gap: 10px; }
+.logo-icon { background: linear-gradient(135deg, #D4AF37 0%, #F4E4A1 100%); color: #000; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; }
+.lang-switcher { display: flex; gap: 10px; }
+.lang-btn { background: transparent; color: #fff; border: 1px solid #D4AF37; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; transition: all 0.3s; }
+.lang-btn.active { background: #D4AF37; color: #000; font-weight: bold; }
+.lang-btn:hover { background: #D4AF37; color: #000; }
+.hero { text-align: center; padding: 80px 5% 60px; background: radial-gradient(ellipse at top, #1a1a1a 0%, #0a0a0a 70%); }
+.hero h1 { font-size: 56px; margin-bottom: 20px; background: linear-gradient(135deg, #D4AF37 0%, #F4E4A1 50%, #D4AF37 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 800; }
+.hero p { font-size: 22px; color: #ccc; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
+.badge { display: inline-block; background: rgba(212, 175, 55, 0.15); border: 1px solid #D4AF37; color: #D4AF37; padding: 8px 20px; border-radius: 50px; font-size: 14px; margin-bottom: 30px; }
+.form-container { max-width: 700px; margin: 0 auto; padding: 40px 5%; }
+.form-card { background: #1a1a1a; border: 1px solid #333; border-radius: 16px; padding: 40px; box-shadow: 0 20px 60px rgba(212, 175, 55, 0.1); }
+.form-group { margin-bottom: 25px; }
+label { display: block; margin-bottom: 10px; font-weight: 600; color: #D4AF37; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+input, select, textarea { width: 100%; padding: 15px; background: #0a0a0a; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 16px; transition: border-color 0.3s; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: #D4AF37; }
+textarea { resize: vertical; min-height: 100px; }
+.generate-btn { width: 100%; background: linear-gradient(135deg, #D4AF37 0%, #F4E4A1 50%, #D4AF37 100%); color: #000; padding: 18px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: transform 0.2s, box-shadow 0.2s; }
+.generate-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4); }
+.generate-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.loading { display: none; text-align: center; padding: 40px; }
+.spinner { border: 4px solid #333; border-top: 4px solid #D4AF37; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.results { display: none; max-width: 800px; margin: 40px auto; padding: 0 5%; }
+.results-title { font-size: 32px; color: #D4AF37; margin-bottom: 30px; text-align: center; }
+.post-card { background: #1a1a1a; border: 1px solid #333; border-left: 4px solid #D4AF37; border-radius: 12px; padding: 25px; margin-bottom: 20px; transition: transform 0.2s; }
+.post-card:hover { transform: translateX(5px); }
+.post-text { color: #fff; font-size: 16px; line-height: 1.7; margin-bottom: 15px; white-space: pre-wrap; }
+.copy-btn { background: transparent; color: #D4AF37; border: 1px solid #D4AF37; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; transition: all 0.3s; }
+.copy-btn:hover { background: #D4AF37; color: #000; }
+.copy-btn.copied { background: #4CAF50; border-color: #4CAF50; color: #fff; }
+.how-it-works { padding: 80px 5%; background: #0f0f0f; }
+.section-title { text-align: center; font-size: 42px; margin-bottom: 60px; color: #D4AF37; }
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+.step { text-align: center; padding: 30px; background: #1a1a1a; border-radius: 12px; border: 1px solid #333; }
+.step-number { background: linear-gradient(135deg, #D4AF37, #F4E4A1); color: #000; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; margin: 0 auto 20px; }
+.step h3 { color: #D4AF37; margin-bottom: 15px; font-size: 22px; }
+.step p { color: #ccc; }
+.pricing { padding: 80px 5%; }
+.pricing-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 900px; margin: 0 auto; }
+.price-card { background: #1a1a1a; border: 1px solid #333; border-radius: 16px; padding: 40px; text-align: center; transition: transform 0.3s; }
+.price-card:hover { transform: translateY(-10px); }
+.price-card.premium { border: 2px solid #D4AF37; position: relative; }
+.price-card.premium::before { content: "⭐ POPULAIRE"; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #D4AF37, #F4E4A1); color: #000; padding: 5px 20px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+.price-card h3 { color: #D4AF37; font-size: 28px; margin-bottom: 15px; }
+.price { font-size: 48px; font-weight: bold; color: #fff; margin-bottom: 5px; }
+.price span { font-size: 18px; color: #999; }
+.features-list { list-style: none; margin: 30px 0; text-align: left; }
+.features-list li { padding: 10px 0; color: #ccc; border-bottom: 1px solid #333; }
+.features-list li::before { content: "✓ "; color: #D4AF37; font-weight: bold; }
+.faq { padding: 80px 5%; background: #0f0f0f; }
+.faq-item { max-width: 800px; margin: 0 auto 20px; background: #1a1a1a; border-radius: 8px; border: 1px solid #333; overflow: hidden; }
+.faq-question { padding: 20px; cursor: pointer; color: #D4AF37; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+.faq-answer { padding: 0 20px 20px; color: #ccc; display: none; }
+.faq-item.active .faq-answer { display: block; }
+.faq-item.active .faq-question::after { content: "−"; }
+.faq-question::after { content: "+"; font-size: 24px; color: #D4AF37; }
+footer { background: #000; padding: 40px 5%; text-align: center; border-top: 1px solid #D4AF37; }
+footer p { color: #999; font-size: 14px; }
+.footer-logo { color: #D4AF37; font-size: 20px; font-weight: bold; margin-bottom: 15px; }
+.error { background: rgba(255, 0, 0, 0.1); border: 1px solid #ff4444; color: #ff4444; padding: 15px; border-radius: 8px; margin-top: 20px; display: none; }
+@media (max-width: 768px) { .hero h1 { font-size: 36px; } .hero p { font-size: 18px; } .section-title { font-size: 32px; } .form-card { padding: 25px; } }
+</style>
+</head>
+<body>
+<header>
+<div class="logo">
+<div class="logo-icon">S</div>
+<span>Social Media AI</span>
+</div>
+<div class="lang-switcher">
+<button class="lang-btn active" onclick="setLanguage('fr')" id="btn-fr">FR</button>
+<button class="lang-btn" onclick="setLanguage('en')" id="btn-en">EN</button>
+</div>
+</header>
+<section class="hero">
+<div class="badge" data-fr="✨ Propulsé par l'IA Claude" data-en="✨ Powered by Claude AI">✨ Propulsé par l'IA Claude</div>
+<h1 data-fr="Crée 5 posts viraux en 30 secondes" data-en="Create 5 viral posts in 30 seconds">Crée 5 posts viraux en 30 secondes</h1>
+<p data-fr="L'outil n°1 pour les commerçants qui veulent dominer les réseaux sociaux sans perdre de temps." data-en="The #1 tool for businesses that want to dominate social media without wasting time.">L'outil n°1 pour les commerçants qui veulent dominer les réseaux sociaux sans perdre de temps.</p>
+</section>
+<section class="form-container">
+<div class="form-card">
+<div class="form-group">
+<label data-fr="Nom de ton commerce *" data-en="Your business name *">Nom de ton commerce *</label>
+<input type="text" id="businessName" placeholder="Ex: Pizza Mario" required>
+</div>
+<div class="form-group">
+<label data-fr="Type de commerce *" data-en="Business type *">Type de commerce *</label>
+<select id="businessType" required>
+<option value="restaurant">🍽️ Restaurant</option>
+<option value="salon">💇 Salon de coiffure</option>
+<option value="boutique">🛍️ Boutique</option>
+<option value="cafe">☕ Café</option>
+<option value="sport">💪 Salle de sport</option>
+<option value="autre">✨ Autre</option>
+</select>
+</div>
+<div class="form-group">
+<label data-fr="Détails sur ton commerce" data-en="Business details">Détails sur ton commerce</label>
+<textarea id="notesText" placeholder="Ex: Nouvelle promo 30% cette semaine..."></textarea>
+</div>
+<button class="generate-btn" onclick="generatePosts()" id="generateBtn">
+<span data-fr="✨ Générer mes 5 Posts" data-en="✨ Generate my 5 Posts">✨ Générer mes 5 Posts</span>
+</button>
+<div class="error" id="error"></div>
+</div>
+</section>
+<div class="loading" id="loading">
+<div class="spinner"></div>
+<p data-fr="L'IA crée tes posts professionnels..." data-en="AI is creating your professional posts...">L'IA crée tes posts professionnels...</p>
+</div>
+<section class="results" id="results">
+<h2 class="results-title" data-fr="🎯 Tes Posts Générés" data-en="🎯 Your Generated Posts">🎯 Tes Posts Générés</h2>
+<div id="postsContainer"></div>
+</section>
+<section class="how-it-works">
+<h2 class="section-title" data-fr="Comment ça marche?" data-en="How does it work?">Comment ça marche?</h2>
+<div class="steps">
+<div class="step">
+<div class="step-number">1</div>
+<h3 data-fr="Décris ton commerce" data-en="Describe your business">Décris ton commerce</h3>
+<p data-fr="Indique le nom, le type et quelques détails." data-en="Enter your business name, type and details.">Indique le nom, le type et quelques détails.</p>
+</div>
+<div class="step">
+<div class="step-number">2</div>
+<h3 data-fr="L'IA génère" data-en="AI generates">L'IA génère</h3>
+<p data-fr="Notre IA crée 5 posts pro avec hashtags en 30 secondes." data-en="Our AI creates 5 pro posts with hashtags in 30 seconds.">Notre IA crée 5 posts pro avec hashtags en 30 secondes.</p>
+</div>
+<div class="step">
+<div class="step-number">3</div>
+<h3 data-fr="Copie et publie" data-en="Copy and publish">Copie et publie</h3>
+<p data-fr="Copie tes posts et publie sur Instagram, Facebook, TikTok." data-en="Copy your posts and publish on Instagram, Facebook, TikTok.">Copie tes posts et publie sur Instagram, Facebook, TikTok.</p>
+</div>
+</div>
+</section>
+<section class="pricing">
+<h2 class="section-title" data-fr="Tarifs Simples" data-en="Simple Pricing">Tarifs Simples</h2>
+<div class="pricing-cards">
+<div class="price-card">
+<h3 data-fr="Gratuit" data-en="Free">Gratuit</h3>
+<div class="price">0€<span data-fr="/mois" data-en="/month">/mois</span></div>
+<ul class="features-list">
+<li data-fr="3 générations par mois" data-en="3 generations per month">3 générations par mois</li>
+<li data-fr="5 posts par génération" data-en="5 posts per generation">5 posts par génération</li>
+<li data-fr="Hashtags inclus" data-en="Hashtags included">Hashtags inclus</li>
+</ul>
+</div>
+<div class="price-card premium">
+<h3>Premium</h3>
+<div class="price">9,99€<span data-fr="/mois" data-en="/month">/mois</span></div>
+<ul class="features-list">
+<li data-fr="Générations illimitées" data-en="Unlimited generations">Générations illimitées</li>
+<li data-fr="Hashtags optimisés" data-en="Optimized hashtags">Hashtags optimisés</li>
+<li data-fr="Support prioritaire" data-en="Priority support">Support prioritaire</li>
+<li data-fr="Nouvelles fonctionnalités" data-en="New features first">Nouvelles fonctionnalités</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="faq">
+<h2 class="section-title">FAQ</h2>
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question" data-fr="Comment fonctionne l'IA?" data-en="How does the AI work?">Comment fonctionne l'IA?</div>
+<div class="faq-answer" data-fr="Notre IA analyse ton commerce et génère 5 posts adaptés avec hashtags pertinents." data-en="Our AI analyzes your business and generates 5 tailored posts with relevant hashtags.">Notre IA analyse ton commerce et génère 5 posts adaptés avec hashtags pertinents.</div>
+</div>
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question" data-fr="Puis-je annuler à tout moment?" data-en="Can I cancel anytime?">Puis-je annuler à tout moment?</div>
+<div class="faq-answer" data-fr="Oui, tu peux annuler ton Premium à tout moment. Aucun engagement." data-en="Yes, you can cancel anytime. No commitment.">Oui, tu peux annuler ton Premium à tout moment. Aucun engagement.</div>
+</div>
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question" data-fr="Les posts sont-ils uniques?" data-en="Are the posts unique?">Les posts sont-ils uniques?</div>
+<div class="faq-answer" data-fr="Oui! Chaque génération crée des posts uniques." data-en="Yes! Each generation creates unique posts.">Oui! Chaque génération crée des posts uniques.</div>
+</div>
+</section>
+<footer>
+<div class="footer-logo">Social Media AI</div>
+<p data-fr="© 2026 Social Media AI. Tous droits réservés." data-en="© 2026 Social Media AI. All rights reserved.">© 2026 Social Media AI. Tous droits réservés.</p>
+<p style="margin-top: 10px;" data-fr="Propulsé par l'IA Claude" data-en="Powered by Claude AI">Propulsé par l'IA Claude</p>
+</footer>
+<script>
+let currentLang = 'fr';
+function setLanguage(lang) {
+currentLang = lang;
+document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+document.querySelectorAll('[data-fr]').forEach(el => {
+const text = el.getAttribute('data-' + lang);
+if (text) {
+if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = text;
+else el.textContent = text;
+}
+});
+}
+function toggleFaq(item) { item.classList.toggle('active'); }
+async function generatePosts() {
+const businessName = document.getElementById('businessName').value.trim();
+const businessType = document.getElementById('businessType').value;
+const notesText = document.getElementById('notesText').value.trim();
+const errorDiv = document.getElementById('error');
+const loadingDiv = document.getElementById('loading');
+const resultsDiv = document.getElementById('results');
+const generateBtn = document.getElementById('generateBtn');
+errorDiv.style.display = 'none';
+resultsDiv.style.display = 'none';
+if (!businessName) {
+errorDiv.textContent = currentLang === 'fr' ? '❌ Remplis le nom de ton commerce' : '❌ Please enter your business name';
+errorDiv.style.display = 'block';
+return;
+}
+loadingDiv.style.display = 'block';
+generateBtn.disabled = true;
+try {
+const response = await fetch('/api/generate-posts', {
+method: 'POST',
+headers: {'Content-Type': 'application/json'},
+body: JSON.stringify({ businessName, businessType, notesText, language: currentLang })
+});
+const data = await response.json();
+if (!response.ok) throw new Error(data.error || 'Erreur serveur');
+displayPosts(data.posts);
+loadingDiv.style.display = 'none';
+resultsDiv.style.display = 'block';
+resultsDiv.scrollIntoView({behavior: 'smooth'});
+} catch (error) {
+loadingDiv.style.display = 'none';
+errorDiv.textContent = '❌ ' + error.message;
+errorDiv.style.display = 'block';
+} finally {
+generateBtn.disabled = false;
+}
+}
+function displayPosts(postsText) {
+const container = document.getElementById('postsContainer');
+container.innerHTML = '';
+const card = document.createElement('div');
+card.className = 'post-card';
+const postText = document.createElement('div');
+postText.className = 'post-text';
+postText.textContent = postsText;
+const copyBtn = document.createElement('button');
+copyBtn.className = 'copy-btn';
+copyBtn.textContent = currentLang === 'fr' ? '📋 Tout copier' : '📋 Copy all';
+copyBtn.onclick = () => {
+navigator.clipboard.writeText(postsText);
+copyBtn.textContent = currentLang === 'fr' ? '✓ Copié!' : '✓ Copied!';
+copyBtn.classList.add('copied');
+setTimeout(() => {
+copyBtn.textContent = currentLang === 'fr' ? '📋 Tout copier' : '📋 Copy all';
+copyBtn.classList.remove('copied');
+}, 2000);
+};
+card.appendChild(postText);
+card.appendChild(copyBtn);
+container.appendChild(card);
+}
+</script>
+</body>
+</html> 
