@@ -67,6 +67,8 @@ POST 2:
   }
 }); // Lancer le serveur
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+console.log('PORT utilisé:', PORT);
+console.log('ANTHROPIC_API_KEY existe?', !!process.env.ANTHROPIC_API_KEY);
+app.listen(PORT, () => { 
   console.log(`✅ Serveur lancé sur http://localhost:${PORT}`);
 }); 
