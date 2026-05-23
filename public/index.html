@@ -9,15 +9,15 @@
 body { background: #0a0a0a; color: #ffffff; line-height: 1.6; }
 header { background: #000; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #D4AF37; position: sticky; top: 0; z-index: 100; }
 .logo { font-size: 24px; font-weight: bold; color: #D4AF37; display: flex; align-items: center; gap: 10px; }
-.logo-icon { background: linear-gradient(135deg, #D4AF37 0%, #F4E4A1 100%); color: #000; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; }
+.logo-icon { background: linear-gradient(135deg, #D4AF37 0%, #F4E4A1 100%); color: #000; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
 .lang-switcher { display: flex; gap: 10px; }
 .lang-btn { background: transparent; color: #fff; border: 1px solid #D4AF37; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; transition: all 0.3s; }
 .lang-btn.active { background: #D4AF37; color: #000; font-weight: bold; }
 .lang-btn:hover { background: #D4AF37; color: #000; }
 .hero { text-align: center; padding: 80px 5% 60px; background: radial-gradient(ellipse at top, #1a1a1a 0%, #0a0a0a 70%); }
-.hero h1 { font-size: 56px; margin-bottom: 20px; background: linear-gradient(135deg, #D4AF37 0%, #F4E4A1 50%, #D4AF37 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 800; }
+.hero h1 { font-size: 56px; margin-bottom: 20px; background: linear-gradient(135deg, #D4AF37 0%, #F4E4A1 50%, #D4AF37 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .hero p { font-size: 22px; color: #ccc; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
-.badge { display: inline-block; background: rgba(212, 175, 55, 0.15); border: 1px solid #D4AF37; color: #D4AF37; padding: 8px 20px; border-radius: 50px; font-size: 14px; margin-bottom: 30px; }
+.badge { display: inline-block; background: rgba(212, 175, 55, 0.15); border: 1px solid #D4AF37; color: #D4AF37; padding: 8px 20px; border-radius: 50px; font-size: 14px; margin-bottom: 20px; }
 .form-container { max-width: 700px; margin: 0 auto; padding: 40px 5%; }
 .form-card { background: #1a1a1a; border: 1px solid #333; border-radius: 16px; padding: 40px; box-shadow: 0 20px 60px rgba(212, 175, 55, 0.1); }
 .form-group { margin-bottom: 25px; }
@@ -25,7 +25,7 @@ label { display: block; margin-bottom: 10px; font-weight: 600; color: #D4AF37; f
 input, select, textarea { width: 100%; padding: 15px; background: #0a0a0a; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 16px; transition: border-color 0.3s; }
 input:focus, select:focus, textarea:focus { outline: none; border-color: #D4AF37; }
 textarea { resize: vertical; min-height: 100px; }
-.generate-btn { width: 100%; background: linear-gradient(135deg, #D4AF37 0%, #F4E4A1 50%, #D4AF37 100%); color: #000; padding: 18px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: transform 0.2s, box-shadow 0.2s; }
+.generate-btn { width: 100%; background: linear-gradient(135deg, #D4AF37 0%, #F4E4A1 50%, #D4AF37 100%); color: #000; padding: 18px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
 .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4); }
 .generate-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 .loading { display: none; text-align: center; padding: 40px; }
@@ -33,9 +33,16 @@ textarea { resize: vertical; min-height: 100px; }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 .results { display: none; max-width: 800px; margin: 40px auto; padding: 0 5%; }
 .results-title { font-size: 32px; color: #D4AF37; margin-bottom: 30px; text-align: center; }
-.post-card { background: #1a1a1a; border: 1px solid #333; border-left: 4px solid #D4AF37; border-radius: 12px; padding: 25px; margin-bottom: 20px; transition: transform 0.2s; }
-.post-card:hover { transform: translateX(5px); }
+.results-actions { text-align: center; margin-bottom: 30px; }
+.copy-all-btn { background: linear-gradient(135deg, #D4AF37 0%, #F4E4A1 100%); color: #000; border: none; padding: 12px 30px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: transform 0.2s; }
+.copy-all-btn:hover { transform: translateY(-2px); }
+.copy-all-btn.copied { background: #4CAF50; color: #fff; }
+.post-card { background: #1a1a1a; border: 1px solid #333; border-left: 4px solid #D4AF37; border-radius: 12px; padding: 25px; margin-bottom: 20px; transition: transform 0.2s, box-shadow 0.2s; }
+.post-card:hover { transform: translateX(5px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15); }
+.post-number { display: inline-block; background: linear-gradient(135deg, #D4AF37, #F4E4A1); color: #000; padding: 4px 12px; border-radius: 50px; font-size: 12px; font-weight: bold; margin-bottom: 15px; }
 .post-text { color: #fff; font-size: 16px; line-height: 1.7; margin-bottom: 15px; white-space: pre-wrap; }
+.post-hashtags { color: #D4AF37; font-size: 14px; margin-bottom: 15px; word-break: break-word; }
+.post-emoji { font-size: 24px; margin-bottom: 15px; }
 .copy-btn { background: transparent; color: #D4AF37; border: 1px solid #D4AF37; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; transition: all 0.3s; }
 .copy-btn:hover { background: #D4AF37; color: #000; }
 .copy-btn.copied { background: #4CAF50; border-color: #4CAF50; color: #fff; }
@@ -43,7 +50,7 @@ textarea { resize: vertical; min-height: 100px; }
 .section-title { text-align: center; font-size: 42px; margin-bottom: 60px; color: #D4AF37; }
 .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
 .step { text-align: center; padding: 30px; background: #1a1a1a; border-radius: 12px; border: 1px solid #333; }
-.step-number { background: linear-gradient(135deg, #D4AF37, #F4E4A1); color: #000; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; margin: 0 auto 20px; }
+.step-number { background: linear-gradient(135deg, #D4AF37, #F4E4A1); color: #000; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; margin: 0 auto 20px; }
 .step h3 { color: #D4AF37; margin-bottom: 15px; font-size: 22px; }
 .step p { color: #ccc; }
 .pricing { padding: 80px 5%; }
@@ -51,7 +58,7 @@ textarea { resize: vertical; min-height: 100px; }
 .price-card { background: #1a1a1a; border: 1px solid #333; border-radius: 16px; padding: 40px; text-align: center; transition: transform 0.3s; }
 .price-card:hover { transform: translateY(-10px); }
 .price-card.premium { border: 2px solid #D4AF37; position: relative; }
-.price-card.premium::before { content: "⭐ POPULAIRE"; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #D4AF37, #F4E4A1); color: #000; padding: 5px 20px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+.price-card.premium::before { content: "⭐ POPULAIRE"; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #D4AF37, #F4E4A1); color: #000; padding: 5px 20px; border-radius: 50px; font-size: 12px; font-weight: bold; }
 .price-card h3 { color: #D4AF37; font-size: 28px; margin-bottom: 15px; }
 .price { font-size: 48px; font-weight: bold; color: #fff; margin-bottom: 5px; }
 .price span { font-size: 18px; color: #999; }
@@ -63,10 +70,9 @@ textarea { resize: vertical; min-height: 100px; }
 .faq-question { padding: 20px; cursor: pointer; color: #D4AF37; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
 .faq-answer { padding: 0 20px 20px; color: #ccc; display: none; }
 .faq-item.active .faq-answer { display: block; }
-.faq-item.active .faq-question::after { content: "−"; }
+.faq-item.active .faq-question::after { content: "-"; }
 .faq-question::after { content: "+"; font-size: 24px; color: #D4AF37; }
 footer { background: #000; padding: 40px 5%; text-align: center; border-top: 1px solid #D4AF37; }
-footer p { color: #999; font-size: 14px; }
 .footer-logo { color: #D4AF37; font-size: 20px; font-weight: bold; margin-bottom: 15px; }
 .error { background: rgba(255, 0, 0, 0.1); border: 1px solid #ff4444; color: #ff4444; padding: 15px; border-radius: 8px; margin-top: 20px; display: none; }
 @media (max-width: 768px) { .hero h1 { font-size: 36px; } .hero p { font-size: 18px; } .section-title { font-size: 32px; } .form-card { padding: 25px; } }
@@ -86,7 +92,7 @@ footer p { color: #999; font-size: 14px; }
 <section class="hero">
 <div class="badge" data-fr="✨ Propulsé par l'IA Claude" data-en="✨ Powered by Claude AI">✨ Propulsé par l'IA Claude</div>
 <h1 data-fr="Crée 5 posts viraux en 30 secondes" data-en="Create 5 viral posts in 30 seconds">Crée 5 posts viraux en 30 secondes</h1>
-<p data-fr="L'outil n°1 pour les commerçants qui veulent dominer les réseaux sociaux sans perdre de temps." data-en="The #1 tool for businesses that want to dominate social media without wasting time.">L'outil n°1 pour les commerçants qui veulent dominer les réseaux sociaux sans perdre de temps.</p>
+<p data-fr="L'outil n°1 pour les commerçants qui veulent dominer les réseaux sociaux sans perdre de temps." data-en="The #1 tool for businesses who want to dominate social media without wasting time.">L'outil n°1 pour les commerçants qui veulent dominer les réseaux sociaux sans perdre de temps.</p>
 </section>
 <section class="form-container">
 <div class="form-card">
@@ -121,6 +127,9 @@ footer p { color: #999; font-size: 14px; }
 </div>
 <section class="results" id="results">
 <h2 class="results-title" data-fr="🎯 Tes Posts Générés" data-en="🎯 Your Generated Posts">🎯 Tes Posts Générés</h2>
+<div class="results-actions">
+<button class="copy-all-btn" id="copyAllBtn" onclick="copyAllPosts()" data-fr="📋 Tout copier" data-en="📋 Copy all">📋 Tout copier</button>
+</div>
 <div id="postsContainer"></div>
 </section>
 <section class="how-it-works">
@@ -189,79 +198,149 @@ footer p { color: #999; font-size: 14px; }
 </footer>
 <script>
 let currentLang = 'fr';
+let allPostsText = '';
+
 function setLanguage(lang) {
-currentLang = lang;
-document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
-document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-document.querySelectorAll('[data-fr]').forEach(el => {
-const text = el.getAttribute('data-' + lang);
-if (text) {
-if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = text;
-else el.textContent = text;
+  currentLang = lang;
+  document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.querySelectorAll('[data-fr]').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (text) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = text;
+      else el.textContent = text;
+    }
+  });
 }
-});
-}
+
 function toggleFaq(item) { item.classList.toggle('active'); }
+
 async function generatePosts() {
-const businessName = document.getElementById('businessName').value.trim();
-const businessType = document.getElementById('businessType').value;
-const notesText = document.getElementById('notesText').value.trim();
-const errorDiv = document.getElementById('error');
-const loadingDiv = document.getElementById('loading');
-const resultsDiv = document.getElementById('results');
-const generateBtn = document.getElementById('generateBtn');
-errorDiv.style.display = 'none';
-resultsDiv.style.display = 'none';
-if (!businessName) {
-errorDiv.textContent = currentLang === 'fr' ? '❌ Remplis le nom de ton commerce' : '❌ Please enter your business name';
-errorDiv.style.display = 'block';
-return;
+  const businessName = document.getElementById('businessName').value.trim();
+  const businessType = document.getElementById('businessType').value;
+  const notesText = document.getElementById('notesText').value.trim();
+  const errorDiv = document.getElementById('error');
+  const loadingDiv = document.getElementById('loading');
+  const resultsDiv = document.getElementById('results');
+  const generateBtn = document.getElementById('generateBtn');
+ 
+  errorDiv.style.display = 'none';
+  resultsDiv.style.display = 'none';
+ 
+  if (!businessName) {
+    errorDiv.textContent = currentLang === 'fr' ? '❌ Remplis le nom de ton commerce' : '❌ Please enter your business name';
+    errorDiv.style.display = 'block';
+    return;
+  }
+ 
+  loadingDiv.style.display = 'block';
+  generateBtn.disabled = true;
+ 
+  try {
+    const response = await fetch('/api/generate-posts', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ businessName, businessType, notesText, language: currentLang })
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Erreur serveur');
+   
+    displayPosts(data.posts);
+    loadingDiv.style.display = 'none';
+    resultsDiv.style.display = 'block';
+    resultsDiv.scrollIntoView({behavior: 'smooth'});
+  } catch (error) {
+    loadingDiv.style.display = 'none';
+    errorDiv.textContent = '❌ ' + error.message;
+    errorDiv.style.display = 'block';
+  } finally {
+    generateBtn.disabled = false;
+  }
 }
-loadingDiv.style.display = 'block';
-generateBtn.disabled = true;
-try {
-const response = await fetch('/api/generate-posts', {
-method: 'POST',
-headers: {'Content-Type': 'application/json'},
-body: JSON.stringify({ businessName, businessType, notesText, language: currentLang })
-});
-const data = await response.json();
-if (!response.ok) throw new Error(data.error || 'Erreur serveur');
-displayPosts(data.posts);
-loadingDiv.style.display = 'none';
-resultsDiv.style.display = 'block';
-resultsDiv.scrollIntoView({behavior: 'smooth'});
-} catch (error) {
-loadingDiv.style.display = 'none';
-errorDiv.textContent = '❌ ' + error.message;
-errorDiv.style.display = 'block';
-} finally {
-generateBtn.disabled = false;
+
+function parsePosts(rawText) {
+  // Découpe le texte par ===POST===
+  const parts = rawText.split('===POST===').filter(p => p.trim().length > 0);
+ 
+  return parts.map(part => {
+    const lines = part.trim().split('\n').filter(l => l.trim());
+    let text = '';
+    let hashtags = '';
+    let emoji = '';
+   
+    lines.forEach(line => {
+      const lower = line.toLowerCase().trim();
+      if (lower.startsWith('texte:') || lower.startsWith('text:')) {
+        text = line.substring(line.indexOf(':') + 1).trim();
+      } else if (lower.startsWith('hashtags:')) {
+        hashtags = line.substring(line.indexOf(':') + 1).trim();
+      } else if (lower.startsWith('emoji:')) {
+        emoji = line.substring(line.indexOf(':') + 1).trim();
+      }
+    });
+   
+    return { text, hashtags, emoji };
+  });
 }
-}
+
 function displayPosts(postsText) {
-const container = document.getElementById('postsContainer');
-container.innerHTML = '';
-const card = document.createElement('div');
-card.className = 'post-card';
-const postText = document.createElement('div');
-postText.className = 'post-text';
-postText.textContent = postsText;
-const copyBtn = document.createElement('button');
-copyBtn.className = 'copy-btn';
-copyBtn.textContent = currentLang === 'fr' ? '📋 Tout copier' : '📋 Copy all';
-copyBtn.onclick = () => {
-navigator.clipboard.writeText(postsText);
-copyBtn.textContent = currentLang === 'fr' ? '✓ Copié!' : '✓ Copied!';
-copyBtn.classList.add('copied');
-setTimeout(() => {
-copyBtn.textContent = currentLang === 'fr' ? '📋 Tout copier' : '📋 Copy all';
-copyBtn.classList.remove('copied');
-}, 2000);
-};
-card.appendChild(postText);
-card.appendChild(copyBtn);
-container.appendChild(card);
+  allPostsText = postsText;
+  const container = document.getElementById('postsContainer');
+  container.innerHTML = '';
+ 
+  const posts = parsePosts(postsText);
+ 
+  posts.forEach((post, index) => {
+    const card = document.createElement('div');
+    card.className = 'post-card';
+   
+    const number = document.createElement('div');
+    number.className = 'post-number';
+    number.textContent = `POST ${index + 1}`;
+   
+    const textDiv = document.createElement('div');
+    textDiv.className = 'post-text';
+    textDiv.textContent = post.text;
+   
+    const hashtagsDiv = document.createElement('div');
+    hashtagsDiv.className = 'post-hashtags';
+    hashtagsDiv.textContent = post.hashtags;
+   
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.textContent = currentLang === 'fr' ? '📋 Copier ce post' : '📋 Copy this post';
+    copyBtn.onclick = () => {
+      const fullPost = `${post.text}\n\n${post.hashtags}`;
+      navigator.clipboard.writeText(fullPost);
+      copyBtn.textContent = currentLang === 'fr' ? '✓ Copié !' : '✓ Copied!';
+      copyBtn.classList.add('copied');
+      setTimeout(() => {
+        copyBtn.textContent = currentLang === 'fr' ? '📋 Copier ce post' : '📋 Copy this post';
+        copyBtn.classList.remove('copied');
+      }, 2000);
+    };
+   
+    card.appendChild(number);
+    card.appendChild(textDiv);
+    card.appendChild(hashtagsDiv);
+    card.appendChild(copyBtn);
+    container.appendChild(card);
+  });
+}
+
+function copyAllPosts() {
+  const posts = parsePosts(allPostsText);
+  const allText = posts.map((post, i) => `POST ${i + 1}\n${post.text}\n${post.hashtags}`).join('\n\n---\n\n');
+  navigator.clipboard.writeText(allText);
+ 
+  const btn = document.getElementById('copyAllBtn');
+  const originalText = btn.textContent;
+  btn.textContent = currentLang === 'fr' ? '✓ Tout copié !' : '✓ All copied!';
+  btn.classList.add('copied');
+  setTimeout(() => {
+    btn.textContent = currentLang === 'fr' ? '📋 Tout copier' : '📋 Copy all';
+    btn.classList.remove('copied');
+  }, 2000);
 }
 </script>
 </body>
